@@ -1,0 +1,95 @@
+function LinkedList() {
+  this.head = null;
+}
+function Node(valor) {
+  this.value = valor;
+  this.next = null;
+}
+
+LinkedList.prototype.add = function (value) {
+  let node = new Node(value);
+  if (!this.head) {
+    this.head = node;
+    return node;
+  }
+  let current = this.head;
+  while (current.next) {
+    current = current.next;
+  }
+  current.next = node;
+  return node;
+};
+
+LinkedList.prototype.remove = function (index) {
+  if (index === 0) {
+    this.head = this.head.next;
+    return this
+  }
+  let current = this.head;
+  let size = 1;
+  while (current.next) {
+    if (index === size) {
+      current.next = current.next.next
+      return this;
+    }
+    current = current.next;
+    size++
+  }
+};
+
+LinkedList.prototype.insertPos = function (value,index){
+  let node = new Node(value)
+  if(index === 0){
+    if(!this.head){
+      this.head = node
+      return
+    } else{
+      let aux = this.head;
+      this.head = node
+      this.head.next = aux;
+      return
+    }
+  }
+  let pos = 1;
+  let current = this.head;
+  while(current.next){
+    if(pos === index){
+      let aux = current.next
+      current.next = node;
+      current.next.next = aux;
+    }
+    pos++;
+    current = current.next;
+  }
+  if(index === pos){
+    current.next = node
+    return
+  }
+  return
+}
+
+LinkedList.prototype.reverseList = function (){
+if(!this.head) return this;
+if(!this.head.next) return this;
+let current = this.head
+let prev = null;
+let aux = null;
+  while(current){
+    aux = current.next;
+    current.next = prev
+    prev = current;
+    current = aux;
+  }
+    return prev
+}
+
+let lista = new LinkedList();
+lista.add(1)
+lista.add(2)
+lista.add(3)
+lista.add(22)
+lista.insertPos(100,4)
+console.log("____________________________________________________")
+lista.reverseList()
+console.log("__________________________________________________")
+lista
